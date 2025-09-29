@@ -1,0 +1,27 @@
+{% if messages %}
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1055;">
+    {% for message in messages %}
+        <div class="toast align-items-center 
+            {% if 'error' in message.tags %}bg-danger text-white{% elif 'warning' in message.tags %}bg-warning text-dark{% elif 'success' in message.tags %}bg-success text-white{% else %}bg-info text-dark{% endif %} 
+            border-0 mb-2" 
+            role="alert" aria-live="assertive" aria-atomic="true"
+        >
+            <div class="d-flex">
+                <div class="toast-body">
+                    {{ message }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toastElList = [].slice.call(document.querySelectorAll('.toast'))
+        toastElList.forEach(function (toastEl) {
+            const bsToast = new bootstrap.Toast(toastEl, { delay: 3000, autohide: true })
+            bsToast.show()
+        })
+    })
+</script>
+{% endif %}

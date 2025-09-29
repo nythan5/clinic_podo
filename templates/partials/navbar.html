@@ -1,0 +1,25 @@
+
+<div class="container d-flex align-items-center">
+    <!-- Logo genérica -->
+    <i class="bi bi-bandaid-fill me-2" style="font-size: 1.5rem; color:white;"></i>
+
+    
+    <a class="navbar-brand mb-0 h1" href="/">Clínica de Podologia</a>
+    
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto ms-3">
+            <div class="dropdown">
+                <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Pacientes
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url "patients:patient_add" %}"> <i class="bi bi-person-fill-add"></i> Novo Paciente</a></li>
+                    <li><a class="dropdown-item" href="{% url "patients:patient_list" %}"> <i class="bi bi-search"></i> Lista de Pacientes</a></li>
+                    <li><a class="dropdown-item" href="#"> <i class="bi bi-file-earmark-text-fill"></i> Buscar Prontuário</a></li>
+                </ul>
+            </div>
+        </ul>
+    </div>
+</div>
+

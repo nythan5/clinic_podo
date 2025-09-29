@@ -1,0 +1,22 @@
+<!-- Modal de confirmação -->
+<div class="modal fade" id="deleteModal{{ patient.pk }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ patient.pk }}" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-secondary text-white">
+        <h6 class="modal-title" id="deleteModalLabel{{ patient.pk }}">
+          Confirmar Exclusão
+        </h6>
+      </div>
+      <div class="modal-body">
+        Tem certeza que deseja excluir o paciente <strong>{{ patient.first_name }} {{ patient.last_name }}</strong>?
+      </div>
+      <div class="modal-footer">
+        <form method="post" action="{% url 'patients:patient_delete' patient.pk %}">
+          {% csrf_token %}
+          <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

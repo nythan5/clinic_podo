@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}Lista de Pacientes{% endblock title %}
+
+{% block content %}
+<div class="d-flex justify-content-center mb-3">
+    <h3>Listagem de Pacientes</h3>
+</div>
+
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-7">
+        <input type="text" name="search" class="form-control form-control-sm" placeholder="Buscar por nome ou prontuário" value="{{ request.GET.search }}">
+    </div>
+    <div class="col-md-3">
+        <select name="status" class="form-select form-select-sm">
+            <option value="">Todos</option>
+            <option value="ativo" {% if request.GET.status == 'ativo' %}selected{% endif %}>Ativo</option>
+            <option value="inativo" {% if request.GET.status == 'inativo' %}selected{% endif %}>Inativo</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-sm btn-primary"><i class="bi bi-search"></i> Buscar</button>
+        <a class="btn btn-sm btn-secondary" href="{% url "patients:patient_list" %}"><i class="bi bi-eraser-fill"></i></a>
+    </div>
+</form>
+
+
+<table class="table table-striped table-bordered table-sm table-hover text-center text-small">
+    <thead class="table-primary">
+        <tr>
+            <th>Nome Completo</th>
+            <th>Prontuário</th>
+            <th>Detalhes</th>
+            <th>Último Agendamento</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for patient in patients %}
+        <tr>
+            <td>{{ patient.first_name }} {{ patient.last_name }}</td>
+            <td>{{ patient.medical_record_number }}</td>
+            <td class="text-start">
+                <!-- Status -->
+                {% if patient.is_active %}
+                    <span class="badge bg-success"><i class="bi bi-check-circle"></i> Ativo</span>
+                {% else %}
+                    <span class="badge bg-danger"><i class="bi bi-x-circle"></i> Inativo</span>
+                {% endif %}
+                
+                <!-- Gênero -->
+                {% if patient.gender %}
+                    <span class="badge bg-primary"><i class="bi bi-person"></i> {{ patient.get_gender_display }}</span>
+                {% endif %}
+
+                <!-- Data de Nascimento -->
+                {% if patient.date_of_birth %}
+                    <span class="badge bg-light text-dark border"><i class="bi bi-calendar"></i> {{patient.age}} anos</span>
+                {% endif %}
+                
+                <!-- Telefones -->
+                {% if patient.phone_1 or patient.phone_2 %}
+                    <div>
+                        {% if patient.phone_1 %}
+                            <i class="bi bi-telephone"></i> {{ patient.phone_1 }}
+                        {% endif %}
+                        {% if patient.phone_1 and patient.phone_2 %}
+                            | 
+                        {% endif %}
+                        {% if patient.phone_2 %}
+                            <i class="bi bi-telephone"></i> {{ patient.phone_2 }}
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+
+                
+                <!-- E-mail -->
+                {% if patient.email %}
+                    <div><i class="bi bi-envelope"></i> {{ patient.email }}</div>
+                {% endif %}
+            </td>
+            <td>
+                {% if patient.last_schedule_date %}
+                    {{ patient.last_schedule_date|date:"d/m/Y" }}
+                {% else %}
+                    -
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url "patients:patient_edit" patient.pk %}" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
+                <button type="button"
+                        class="btn btn-sm btn-danger"
+                        data-bs-toggle="modal"
+                        data-bs-target="#deleteModal{{ patient.pk }}">
+                    <i class="bi bi-trash3-fill"></i>
+                </button>
+            </td>
+        </tr>
+        {% include "patients/modals/delete_modal.html" %}
+        {% empty %}
+        <tr>
+            <td colspan="5" class="text-center">Nenhum paciente cadastrado.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+
+{% include "partials/pagination.html" %}
+
+{% endblock %}
