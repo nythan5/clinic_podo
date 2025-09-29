@@ -8,17 +8,11 @@ Este projeto é um sistema web desenvolvido em **Django** para auxiliar no geren
 - Visualização de consultas em um **calendário interativo** com **FullCalendar**.  
 - Painel administrativo do Django para gestão completa de pacientes e consultas.  
 
-## 🚀 Próximas melhorias
-- CRUD de consultas direto pelo calendário.  
-- Integração com **Google Calendar** para sincronizar automaticamente os agendamentos.  
-- Controle de usuários e permissões (recepção, profissionais, administradores).  
-- Relatórios simples de atendimentos e pagamentos.  
-
 ## 🛠️ Tecnologias utilizadas
 - **Python 3**  
 - **Django**  
-- **SQLite (ou PostgreSQL em produção)**  
+- **PostgreSQL**  
 - **FullCalendar (frontend)**  
-- **Bootstrap (estilização futura)**  
+- **Bootstrap**  
 
-## 📂 Estrutura inicial do projeto
+
