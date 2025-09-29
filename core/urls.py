@@ -12,4 +12,5 @@ urlpatterns = [
     path('test', TestPageView.as_view(), name='test'),
     path('admin/', admin.site.urls),
     path('patients/', include('patients.urls', namespace='patients')),
+    path('procedures/', include('procedures.urls', namespace='procedures')),
 ]

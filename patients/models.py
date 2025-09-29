@@ -69,4 +69,4 @@ class Patient(models.Model):
         )
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name} (P: {self.medical_record_number})"
+        return f"{self.first_name} {self.last_name} ({self.medical_record_number})"

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
 
     # My Apps
     'patients',
+    'procedures',
 
 
 ]
